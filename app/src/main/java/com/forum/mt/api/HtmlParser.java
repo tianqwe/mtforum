@@ -1140,10 +1140,47 @@ public class HtmlParser {
             post.setTitle(cleanHtmlEntities(titleElem.text().trim()));
         }
         
-        // 板块名
+        // 板块名和板块ID
         Element forumElem = doc.selectFirst("a.kmtit");
         if (forumElem != null) {
             post.setForumName(forumElem.text());
+            
+            // 从链接提取板块ID: href="forum.php?mod=forumdisplay&fid=41"
+            String forumHref = forumElem.attr("href");
+            if (forumHref != null) {
+                String fid = extractFid(forumHref);
+                if (fid != null) {
+                    try {
+                        post.setForumId(Integer.parseInt(fid));
+                    } catch (NumberFormatException ignored) {}
+                }
+            }
+        }
+        
+        // 如果没有从板块链接获取到fid，尝试从页面其他位置获取
+        if (post.getForumId() == 0) {
+            // 尝试从面包屑导航获取: forum.php?mod=forumdisplay&fid=41
+            Element breadcrumbFid = doc.selectFirst("a[href*='fid=']");
+            if (breadcrumbFid != null) {
+                String href = breadcrumbFid.attr("href");
+                String fid = extractFid(href);
+                if (fid != null) {
+                    try {
+                        post.setForumId(Integer.parseInt(fid));
+                    } catch (NumberFormatException ignored) {}
+                }
+            }
+        }
+        
+        // 如果还是没有，尝试从JS变量中获取: var fid = '41';
+        if (post.getForumId() == 0) {
+            Pattern fidPattern = Pattern.compile("var\\s+fid\\s*=\\s*['\"]?(\\d+)['\"]?");
+            Matcher fidMatcher = fidPattern.matcher(doc.html());
+            if (fidMatcher.find()) {
+                try {
+                    post.setForumId(Integer.parseInt(fidMatcher.group(1)));
+                } catch (NumberFormatException ignored) {}
+            }
         }
         
         // 内容 - 获取主帖（楼主）的内容
@@ -1743,16 +1780,13 @@ public class HtmlParser {
                 comment.setAuthorLevel(cleanHtmlEntities(levelElem.text()));
             }
             
-            // 评论内容
+            // 评论内容 - 获取父容器以包含图片等
+            // HTML结构: <div class="comiis_messages"><div class="comiis_message_table">文本</div><ul class="comiis_img_one">图片</ul></div>
+            Element messagesElem = block.selectFirst(".comiis_messages");
             Element contentElem = block.selectFirst(".comiis_message_table");
-            if (contentElem != null) {
-                String content = contentElem.html();
-                content = content.replace("src=\"/", "src=\"https://bbs.binmt.cc/");
-                content = content.replace("src='/", "src='https://bbs.binmt.cc/");
-                
-                // 解析引用回复 - 移动端结构
-                // 实际HTML: <div class="comiis_quote bg_h b_dashed f_c"><blockquote><font size="2">回复</font> <font color="#999999">作者 发表于 时间</font><br /><font color="#999999">引用内容</font></blockquote></div>
-                Element quoteElem = contentElem.selectFirst(".comiis_quote, .comiis_quotes, .quote");
+            if (messagesElem != null) {
+                // 先处理引用回复
+                Element quoteElem = messagesElem.selectFirst(".comiis_quote, .comiis_quotes, .quote");
                 if (quoteElem != null) {
                     // 从blockquote中提取内容
                     Element blockquote = quoteElem.selectFirst("blockquote");
@@ -1792,7 +1826,6 @@ public class HtmlParser {
                         if (comment.getQuoteContent() == null || comment.getQuoteContent().isEmpty()) {
                             String blockquoteText = blockquote.text();
                             // 移除 "回复 xxx 发表于..." 部分
-                            // 格式: "回复 lufeey 发表于 2026-2-26 11:45 能分享一下链接不"
                             Pattern contentPattern = Pattern.compile("回复\\s+[^\\s]+\\s+发表于\\s+\\d{4}-\\d{1,2}-\\d{1,2}\\s+\\d{1,2}:\\d{1,2}\\s*(.*)");
                             java.util.regex.Matcher contentMatcher = contentPattern.matcher(blockquoteText);
                             if (contentMatcher.find()) {
@@ -1804,14 +1837,29 @@ public class HtmlParser {
                         }
                     }
                     
-                    // 从内容中移除引用部分
+                    // 从父容器中移除引用块，避免重复显示
                     quoteElem.remove();
-                    content = contentElem.html();
                 }
+                
+                // 获取父容器的完整HTML（包含文本和图片，不含引用块）
+                String content = messagesElem.html();
+                content = content.replace("src=\"/", "src=\"https://bbs.binmt.cc/");
+                content = content.replace("src='/", "src='https://bbs.binmt.cc/");
                 
                 comment.setContent(content);
                 
                 // 解析评论内容为内容块列表，支持图片等独立显示
+                List<com.forum.mt.model.ContentBlock> contentBlocks = 
+                        com.forum.mt.util.ContentParser.parse(content);
+                comment.setContentBlocks(contentBlocks);
+            } else if (contentElem != null) {
+                // 兼容旧格式：只有 .comiis_message_table
+                String content = contentElem.html();
+                content = content.replace("src=\"/", "src=\"https://bbs.binmt.cc/");
+                content = content.replace("src='/", "src='https://bbs.binmt.cc/");
+                
+                comment.setContent(content);
+                
                 List<com.forum.mt.model.ContentBlock> contentBlocks = 
                         com.forum.mt.util.ContentParser.parse(content);
                 comment.setContentBlocks(contentBlocks);

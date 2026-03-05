@@ -1,6 +1,8 @@
 package com.forum.mt.util;
 
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
@@ -8,6 +10,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.forum.mt.R;
@@ -32,6 +37,8 @@ public class GlideImageGetter implements Html.ImageGetter {
     private final int smileySize;      // 表情图片尺寸
     private final int normalImageWidth; // 普通图片宽度
     private final Set<ImageLoadTarget> activeTargets = new HashSet<>();
+    private Spanned spannedText; // 保存 Spanned 文本引用，用于刷新
+    private static final Handler mainHandler = new Handler(Looper.getMainLooper()); // 主线程 Handler
 
     public GlideImageGetter(TextView textView) {
         this.textViewRef = new WeakReference<>(textView);
@@ -43,6 +50,13 @@ public class GlideImageGetter implements Html.ImageGetter {
         int paddingDp = 32; // 左右边距总和
         int paddingPx = (int) (paddingDp * metrics.density);
         this.normalImageWidth = metrics.widthPixels - paddingPx;
+    }
+    
+    /**
+     * 设置 Spanned 文本引用，用于图片加载完成后刷新
+     */
+    public void setSpannedText(Spanned spanned) {
+        this.spannedText = spanned;
     }
 
     @Override
@@ -59,12 +73,12 @@ public class GlideImageGetter implements Html.ImageGetter {
         int placeholderSize = isSmiley ? smileySize : normalImageWidth;
         urlDrawable.setBounds(0, 0, placeholderSize, placeholderSize);
 
-        // 处理相对路径
+        // 处理相对路径（与 ContentParser 保持一致）
         String url = source;
         if (url.startsWith("//")) {
             url = "https:" + url;
         } else if (url.startsWith("/")) {
-            url = "https://cdn-bbs.mt2.cn" + url;
+            url = "https://bbs.binmt.cc" + url;
         }
 
         // 使用Glide异步加载图片
@@ -104,6 +118,28 @@ public class GlideImageGetter implements Html.ImageGetter {
             }
         }
         activeTargets.clear();
+        spannedText = null;
+    }
+    
+    /**
+     * 刷新 TextView 显示
+     * 使用主线程 Handler 确保在 UI 线程执行
+     */
+    private void refreshTextView() {
+        TextView textView = textViewRef.get();
+        if (textView == null || spannedText == null) {
+            return;
+        }
+        
+        // 使用主线程 Handler 确保在 UI 线程执行
+        mainHandler.post(() -> {
+            TextView tv = textViewRef.get();
+            if (tv == null) return;
+            
+            // 重新设置文本以触发 Span 刷新
+            // 这是关键：需要重新设置文本才能让 ImageSpan 正确显示
+            tv.setText(spannedText);
+        });
     }
 
     /**
@@ -161,14 +197,8 @@ public class GlideImageGetter implements Html.ImageGetter {
             urlDrawable.setDrawable(resource);
             urlDrawable.setBounds(0, 0, width, height);
             
-            // 通知TextView重绘（不需要重新设置文本）
-            TextView textView = textViewRef.get();
-            if (textView != null) {
-                textView.post(() -> {
-                    textView.invalidate();
-                    textView.requestLayout();
-                });
-            }
+            // 刷新 TextView 显示（使用 setText 触发 Span 更新）
+            refreshTextView();
             
             activeTargets.remove(this);
         }
@@ -185,10 +215,8 @@ public class GlideImageGetter implements Html.ImageGetter {
                 errorDrawable.setBounds(0, 0, size, size);
                 urlDrawable.setDrawable(errorDrawable);
                 
-                TextView textView = textViewRef.get();
-                if (textView != null) {
-                    textView.post(textView::invalidate);
-                }
+                // 刷新 TextView 显示
+                refreshTextView();
             }
             activeTargets.remove(this);
         }
@@ -237,15 +265,18 @@ public class GlideImageGetter implements Html.ImageGetter {
     /**
      * 便捷方法：设置带表情的HTML内容到TextView
      * 表情图片会显示在文本的正确位置
+     * @return GlideImageGetter 实例，可用于取消加载
      */
-    public static void setHtmlWithImages(TextView textView, String html) {
+    public static GlideImageGetter setHtmlWithImages(TextView textView, String html) {
         if (html == null || html.isEmpty()) {
             textView.setText("");
-            return;
+            return null;
         }
         
         GlideImageGetter imageGetter = new GlideImageGetter(textView);
         Spanned spanned = HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_COMPACT, imageGetter, null);
+        imageGetter.setSpannedText(spanned); // 保存引用用于刷新
         textView.setText(spanned);
+        return imageGetter;
     }
 }

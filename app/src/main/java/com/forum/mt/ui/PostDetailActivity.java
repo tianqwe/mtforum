@@ -426,13 +426,8 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     private void setupClickListeners() {
-        binding.followButton.setOnClickListener(v -> {
-            if (!viewModel.isLoggedIn()) {
-                Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            viewModel.toggleFollow();
-        });
+        // 注意：followButton 的点击监听在 updateFollowButton 方法中设置
+        // 因为需要根据是否为自己的帖子显示不同的按钮（编辑/关注）
 
         binding.likeButton.setOnClickListener(v -> {
             isUserLikeAction = true;
@@ -2241,8 +2236,8 @@ public class PostDetailActivity extends AppCompatActivity {
         int commentTotal = post.getCommentTotal() > 0 ? post.getCommentTotal() : post.getReplies();
         binding.commentCount.setText("(" + commentTotal + ")");
 
-        // 关注按钮状态
-        updateFollowButton(post.isFollowed());
+        // 关注/编辑按钮状态（传入作者ID用于判断是否为自己的帖子）
+        updateFollowButton(post.isFollowed(), post.getAuthorId());
 
         // 赞赏按钮
         if (post.isCanRate()) {
@@ -2392,16 +2387,81 @@ public class PostDetailActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 更新关注/编辑按钮状态
+     * 如果是自己的帖子，显示"编辑"按钮
+     * 否则显示"关注/已关注"按钮
+     */
     private void updateFollowButton(boolean isFollowed) {
-        if (isFollowed) {
-            binding.followButton.setText("已关注");
-            binding.followButton.setTextColor(Color.parseColor("#999999"));
-            binding.followButton.setBackgroundResource(R.drawable.bg_followed_button);
-        } else {
-            binding.followButton.setText("关注");
+        updateFollowButton(isFollowed, 0);
+    }
+    
+    /**
+     * 更新关注/编辑按钮状态
+     * @param isFollowed 是否已关注
+     * @param authorId 帖子作者ID
+     */
+    private void updateFollowButton(boolean isFollowed, int authorId) {
+        // 判断是否为自己的帖子
+        if (currentUserId > 0 && authorId > 0 && currentUserId == authorId) {
+            // 是自己的帖子，显示编辑按钮
+            binding.followButton.setText("编辑");
             binding.followButton.setTextColor(Color.parseColor("#FF6B4A"));
             binding.followButton.setBackgroundResource(R.drawable.bg_follow_button);
+            // 移除之前的点击监听，设置编辑点击监听
+            binding.followButton.setOnClickListener(v -> {
+                startEditPost();
+            });
+        } else {
+            // 不是自己的帖子，显示关注按钮
+            if (isFollowed) {
+                binding.followButton.setText("已关注");
+                binding.followButton.setTextColor(Color.parseColor("#999999"));
+                binding.followButton.setBackgroundResource(R.drawable.bg_followed_button);
+            } else {
+                binding.followButton.setText("关注");
+                binding.followButton.setTextColor(Color.parseColor("#FF6B4A"));
+                binding.followButton.setBackgroundResource(R.drawable.bg_follow_button);
+            }
+            // 设置关注点击监听
+            binding.followButton.setOnClickListener(v -> {
+                if (!viewModel.isLoggedIn()) {
+                    Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                viewModel.toggleFollow();
+            });
         }
+    }
+    
+    /**
+     * 启动编辑帖子页面
+     */
+    private void startEditPost() {
+        if (currentPost == null) {
+            Toast.makeText(this, "帖子信息加载中", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        int fid = currentPost.getForumId();
+        int pid = currentPost.getFirstPid();
+        String title = currentPost.getTitle();
+        String content = currentPost.getContent();
+        
+        // 调试日志
+        android.util.Log.d("PostDetailActivity", "Edit post params: tid=" + currentTid + ", fid=" + fid + ", pid=" + pid);
+        
+        if (fid == 0) {
+            Toast.makeText(this, "无法获取版块ID，请刷新页面后重试", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        if (pid == 0) {
+            Toast.makeText(this, "无法获取帖子PID，请刷新页面后重试", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        EditPostActivity.start(this, currentTid, fid, pid, title, content);
     }
 
     private String safeString(String value, String defaultValue) {

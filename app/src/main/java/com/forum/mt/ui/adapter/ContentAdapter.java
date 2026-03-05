@@ -324,12 +324,16 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 java.util.regex.Pattern.CASE_INSENSITIVE
             );
             
-            // 获取当前TextView的文本（可能是Spanned）
+            // 获取当前TextView的文本（可能是Spanned，包含表情图片等Span）
             CharSequence currentText = textView.getText();
             android.text.Spannable spannable;
             
             if (currentText instanceof android.text.Spannable) {
                 spannable = (android.text.Spannable) currentText;
+            } else if (currentText instanceof android.text.Spanned) {
+                // Spanned 需要转换为 Spannable 以保留现有的 Span（如表情图片）
+                spannable = new android.text.SpannableStringBuilder(currentText);
+                textView.setText(spannable);
             } else {
                 spannable = new android.text.SpannableString(text);
                 textView.setText(spannable);
@@ -834,6 +838,7 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      */
     class RichTextViewHolder extends RecyclerView.ViewHolder {
         TextView textContent;
+        com.forum.mt.util.GlideImageGetter currentImageGetter; // 保存当前加载器引用
 
         RichTextViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -841,10 +846,17 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         void bind(ContentBlock block) {
+            // 取消之前的图片加载，避免 ViewHolder 复用时图片显示到错误位置
+            if (currentImageGetter != null) {
+                currentImageGetter.cancelLoads();
+                currentImageGetter = null;
+            }
+            
             String html = block.getContent();
             if (html != null && !html.isEmpty()) {
                 // 使用 GlideImageGetter 支持表情图片在文本正确位置显示
-                com.forum.mt.util.GlideImageGetter.setHtmlWithImages(textContent, html);
+                // 保存引用以便后续取消
+                currentImageGetter = com.forum.mt.util.GlideImageGetter.setHtmlWithImages(textContent, html);
                 
                 // 应用字体大小设置
                 FontUtils.applyFontSize(itemView.getContext(), textContent, FontUtils.SIZE_CONTENT);
@@ -949,6 +961,7 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      */
     class StyledTextViewHolder extends RecyclerView.ViewHolder {
         TextView textContent;
+        com.forum.mt.util.GlideImageGetter currentImageGetter; // 保存当前加载器引用
 
         StyledTextViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -956,6 +969,12 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         void bind(ContentBlock block) {
+            // 取消之前的图片加载
+            if (currentImageGetter != null) {
+                currentImageGetter.cancelLoads();
+                currentImageGetter = null;
+            }
+            
             String styledHtml = block.getStyledHtml();
             String plainText = block.getContent();
             
@@ -970,7 +989,7 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
                 
                 // 使用 GlideImageGetter 支持表情图片
-                com.forum.mt.util.GlideImageGetter.setHtmlWithImages(textContent, styledHtml);
+                currentImageGetter = com.forum.mt.util.GlideImageGetter.setHtmlWithImages(textContent, styledHtml);
                 
                 // 应用字体大小设置
                 FontUtils.applyFontSize(itemView.getContext(), textContent, FontUtils.SIZE_CONTENT);

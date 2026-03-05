@@ -151,6 +151,13 @@
             android:theme="@style/NewThreadTheme"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- 编辑帖子页面 -->
+        <activity
+            android:name="com.forum.mt.ui.EditPostActivity"
+            android:exported="false"
+            android:label="编辑帖子"
+            android:windowSoftInputMode="adjustResize" />
+
     </application>
 
 </manifest>

@@ -4614,4 +4614,334 @@ public class ForumApi {
                         public String getMessage() { return message; }
                         public void setMessage(String message) { this.message = message; }
                     }
+                    
+                    // ==================== 编辑帖子相关 API ====================
+                    
+                    /**
+                     * 获取帖子编辑页面数据
+                     * @param fid 版块ID
+                     * @param tid 帖子ID
+                     * @param pid 楼层ID（主帖的pid）
+                     * @return 编辑页面数据
+                     */
+                    public EditPostData getEditPostData(int fid, int tid, int pid) {
+                        EditPostData data = new EditPostData();
+                        
+                        try {
+                            // 构建请求URL
+                            String url = ApiConfig.BASE_URL + "forum.php?mod=post&action=edit&fid=" + fid 
+                                    + "&tid=" + tid + "&pid=" + pid + "&mobile=2";
+                            
+                            Request request = new Request.Builder()
+                                    .url(url)
+                                    .get()
+                                    .build();
+                            
+                            Response response = client.newCall(request).execute();
+                            
+                            if (response.isSuccessful()) {
+                                String html = response.body().string();
+                                parseEditPostData(html, data);
+                            }
+                        } catch (Exception e) {
+                            android.util.Log.e("ForumApi", "getEditPostData error", e);
+                            data.setSuccess(false);
+                            data.setErrorMessage("获取编辑数据失败: " + e.getMessage());
+                        }
+                        
+                        return data;
+                    }
+                    
+                    /**
+                     * 解析编辑页面HTML数据
+                     */
+                    private void parseEditPostData(String html, EditPostData data) {
+                        try {
+                            org.jsoup.nodes.Document doc = org.jsoup.Jsoup.parse(html);
+                            
+                            // 解析 fid - 从隐藏字段获取
+                            org.jsoup.nodes.Element fidInput = doc.selectFirst("input[name=fid]");
+                            if (fidInput != null) {
+                                try {
+                                    data.setFid(Integer.parseInt(fidInput.attr("value")));
+                                } catch (NumberFormatException ignored) {}
+                            }
+                            
+                            // 如果没有从隐藏字段获取到，尝试从URL参数获取
+                            if (data.getFid() == 0) {
+                                java.util.regex.Pattern fidPattern = java.util.regex.Pattern.compile("fid=(\\d+)");
+                                java.util.regex.Matcher fidMatcher = fidPattern.matcher(html);
+                                if (fidMatcher.find()) {
+                                    try {
+                                        data.setFid(Integer.parseInt(fidMatcher.group(1)));
+                                    } catch (NumberFormatException ignored) {}
+                                }
+                            }
+                            
+                            // 解析 formhash
+                            org.jsoup.nodes.Element formhashInput = doc.selectFirst("input[name=formhash]");
+                            if (formhashInput != null) {
+                                data.setFormhash(formhashInput.attr("value"));
+                            }
+                            
+                            // 解析 posttime
+                            org.jsoup.nodes.Element posttimeInput = doc.selectFirst("input[name=posttime]");
+                            if (posttimeInput != null) {
+                                data.setPosttime(posttimeInput.attr("value"));
+                            }
+                            
+                            // 解析标题
+                            org.jsoup.nodes.Element subjectInput = doc.selectFirst("input[name=subject]");
+                            if (subjectInput != null) {
+                                data.setSubject(subjectInput.attr("value"));
+                            }
+                            
+                            // 解析内容
+                            org.jsoup.nodes.Element messageTextarea = doc.selectFirst("textarea[name=message]");
+                            if (messageTextarea != null) {
+                                data.setContentMessage(messageTextarea.text());
+                            }
+                            
+                            // 解析已有附件 - aid属性在span元素上
+                            // 结构: <li><span aid="354832">...</span><span class="p_img"><a><img src="..." title="filename"></a></span>...</li>
+                            org.jsoup.select.Elements attachItems = doc.select("#imglist li");
+                            for (org.jsoup.nodes.Element li : attachItems) {
+                                // 跳过上传按钮
+                                if (li.hasClass("up_btn")) continue;
+                                
+                                // aid在span元素上
+                                org.jsoup.nodes.Element aidSpan = li.selectFirst("span[aid]");
+                                if (aidSpan == null) continue;
+                                
+                                int aid = Integer.parseInt(aidSpan.attr("aid"));
+                                
+                                // 图片信息在.p_img下的img
+                                org.jsoup.nodes.Element img = li.selectFirst(".p_img img");
+                                String imgSrc = img != null ? img.attr("src") : "";
+                                String title = img != null ? img.attr("title") : "";
+                                
+                                AttachmentInfo attach = new AttachmentInfo();
+                                attach.setAid(aid);
+                                attach.setUrl(imgSrc);
+                                attach.setFilename(title);
+                                data.addAttachment(attach);
+                                
+                                android.util.Log.d("ForumApi", "Found attachment: aid=" + aid + ", url=" + imgSrc);
+                            }
+                            
+                            // 解析 uploadHash 和 uid（用于上传新附件）
+                            // 格式: uploadformdata:{uid:"1398", hash:"xxx"}
+                            String pageHtml = doc.html();
+                            
+                            // 解析 uid
+                            java.util.regex.Pattern uidPattern = java.util.regex.Pattern.compile(
+                                    "uid:\\s*[\"']?(\\d+)[\"']?");
+                            java.util.regex.Matcher uidMatcher = uidPattern.matcher(pageHtml);
+                            if (uidMatcher.find()) {
+                                try {
+                                    data.setUid(Integer.parseInt(uidMatcher.group(1)));
+                                    android.util.Log.d("ForumApi", "Found uid: " + uidMatcher.group(1));
+                                } catch (NumberFormatException e) {
+                                    android.util.Log.w("ForumApi", "Failed to parse uid");
+                                }
+                            }
+                            
+                            // 解析 hash
+                            java.util.regex.Pattern hashPattern = java.util.regex.Pattern.compile(
+                                    "hash:\\s*[\"']([^\"']+)[\"']");
+                            java.util.regex.Matcher hashMatcher = hashPattern.matcher(pageHtml);
+                            if (hashMatcher.find()) {
+                                data.setUploadHash(hashMatcher.group(1));
+                                android.util.Log.d("ForumApi", "Found uploadHash: " + hashMatcher.group(1));
+                            } else {
+                                android.util.Log.w("ForumApi", "uploadHash not found in page");
+                            }
+                            
+                            data.setSuccess(true);
+                        } catch (Exception e) {
+                            android.util.Log.e("ForumApi", "parseEditPostData error", e);
+                            data.setSuccess(false);
+                            data.setErrorMessage("解析编辑数据失败");
+                        }
+                    }
+                    
+                    /**
+                     * 提交编辑帖子
+                     * @param fid 版块ID
+                     * @param tid 帖子ID
+                     * @param pid 楼层ID（主帖的pid）
+                     * @param subject 标题
+                     * @param message 内容
+                     * @param formhash 表单验证
+                     * @param posttime 发布时间戳
+                     * @return 编辑结果
+                     */
+                    public ApiResponse<Boolean> editPost(int fid, int tid, int pid, String subject, 
+                            String message, String formhash, String posttime) {
+                        return editPost(fid, tid, pid, subject, message, formhash, posttime, null, 0);
+                    }
+                    
+                    /**
+                     * 提交编辑帖子（支持删除）
+                     * @param fid 版块ID
+                     * @param tid 帖子ID
+                     * @param pid 楼层ID
+                     * @param subject 标题
+                     * @param message 内容
+                     * @param formhash 表单验证
+                     * @param posttime 发布时间戳
+                     * @param newAttachIds 新上传的附件ID列表
+                     * @param delete 是否删除帖子（1=删除）
+                     * @return 编辑结果
+                     */
+                    public ApiResponse<Boolean> editPost(int fid, int tid, int pid, String subject, 
+                            String message, String formhash, String posttime, 
+                            java.util.List<Integer> newAttachIds, int delete) {
+                        ApiResponse<Boolean> result = new ApiResponse<>();
+                        result.setData(false);
+                        
+                        try {
+                            // 构建请求URL
+                            String url = ApiConfig.BASE_URL + "forum.php?mod=post&action=edit&extra=&editsubmit=yes&mobile=2&inajax=1";
+                            
+                            // 构建表单数据
+                            okhttp3.FormBody.Builder formBuilder = new okhttp3.FormBody.Builder()
+                                    .add("formhash", formhash != null ? formhash : "")
+                                    .add("posttime", posttime != null ? posttime : String.valueOf(System.currentTimeMillis() / 1000))
+                                    .add("delete", String.valueOf(delete))
+                                    .add("fid", String.valueOf(fid))
+                                    .add("tid", String.valueOf(tid))
+                                    .add("pid", String.valueOf(pid))
+                                    .add("page", "1")
+                                    .add("editsubmit", "yes");
+                            
+                            // 添加标题（如果有）
+                            if (subject != null && !subject.isEmpty()) {
+                                formBuilder.add("subject", subject);
+                            }
+                            
+                            // 添加内容
+                            formBuilder.add("message", message != null ? message : "");
+                            
+                            // 添加新上传的附件
+                            if (newAttachIds != null) {
+                                for (Integer aid : newAttachIds) {
+                                    formBuilder.add("attachnew[" + aid + "][description]", "");
+                                    formBuilder.add("attachnew[" + aid + "][readperm]", "");
+                                    formBuilder.add("attachnew[" + aid + "][price]", "");
+                                }
+                            }
+                            
+                            Request request = new Request.Builder()
+                                    .url(url)
+                                    .post(formBuilder.build())
+                                    .build();
+                            
+                            Response response = client.newCall(request).execute();
+                            
+                            if (response.isSuccessful()) {
+                                String xml = response.body().string();
+                                
+                                // 判断编辑是否成功
+                                if (xml.contains("编辑成功") || xml.contains("已编辑") || 
+                                        xml.contains("操作成功") || xml.contains("succeed")) {
+                                    result.setSuccess(true);
+                                    result.setData(true);
+                                    result.setMessage(delete == 1 ? "帖子已删除" : "编辑成功");
+                                } else if (xml.contains("太快")) {
+                                    result.setSuccess(false);
+                                    result.setMessage("操作太快，请稍后再试");
+                                } else if (xml.contains("权限")) {
+                                    result.setSuccess(false);
+                                    result.setMessage("没有编辑权限");
+                                } else {
+                                    // 尝试提取错误消息
+                                    java.util.regex.Pattern msgPattern = java.util.regex.Pattern.compile(
+                                            "<p[^>]*>([^<]+)</p>");
+                                    java.util.regex.Matcher msgMatcher = msgPattern.matcher(xml);
+                                    if (msgMatcher.find()) {
+                                        String msg = msgMatcher.group(1).trim();
+                                        result.setMessage(msg);
+                                    } else {
+                                        result.setMessage("编辑失败");
+                                    }
+                                }
+                            } else {
+                                result.setSuccess(false);
+                                result.setMessage("网络请求失败");
+                            }
+                        } catch (Exception e) {
+                            android.util.Log.e("ForumApi", "editPost error", e);
+                            result.setSuccess(false);
+                            result.setMessage("编辑出错: " + e.getMessage());
+                        }
+                        
+                        return result;
+                    }
+                    
+                    /**
+                     * 删除帖子（实际上是编辑帖子并设置delete=1）
+                     */
+                    public ApiResponse<Boolean> deletePost(int fid, int tid, int pid, String formhash) {
+                        return editPost(fid, tid, pid, null, "", formhash, 
+                                String.valueOf(System.currentTimeMillis() / 1000), null, 1);
+                    }
+                    
+                    // ==================== 编辑帖子数据模型 ====================
+                    
+                    /**
+                     * 编辑帖子数据
+                     */
+                    public static class EditPostData {
+                        private boolean success;
+                        private String errorMessage;
+                        private int fid;
+                        private int uid;  // 用户ID（用于上传）
+                        private String formhash;
+                        private String posttime;
+                        private String subject;
+                        private String contentMessage;
+                        private String uploadHash;
+                        private java.util.List<AttachmentInfo> attachments = new java.util.ArrayList<>();
+                        
+                        public boolean isSuccess() { return success; }
+                        public void setSuccess(boolean success) { this.success = success; }
+                        public String getErrorMessage() { return errorMessage; }
+                        public void setErrorMessage(String errorMessage) { this.errorMessage = errorMessage; }
+                        public int getFid() { return fid; }
+                        public void setFid(int fid) { this.fid = fid; }
+                        public int getUid() { return uid; }
+                        public void setUid(int uid) { this.uid = uid; }
+                        public String getFormhash() { return formhash; }
+                        public void setFormhash(String formhash) { this.formhash = formhash; }
+                        public String getPosttime() { return posttime; }
+                        public void setPosttime(String posttime) { this.posttime = posttime; }
+                        public String getSubject() { return subject; }
+                        public void setSubject(String subject) { this.subject = subject; }
+                        public String getContentMessage() { return contentMessage; }
+                        public void setContentMessage(String contentMessage) { this.contentMessage = contentMessage; }
+                        public String getUploadHash() { return uploadHash; }
+                        public void setUploadHash(String uploadHash) { this.uploadHash = uploadHash; }
+                        public java.util.List<AttachmentInfo> getAttachments() { return attachments; }
+                        public void addAttachment(AttachmentInfo attach) { this.attachments.add(attach); }
+                    }
+                    
+                    /**
+                     * 附件信息
+                     */
+                    public static class AttachmentInfo {
+                        private int aid;
+                        private String url;
+                        private String filename;
+                        private String description;
+                        
+                        public int getAid() { return aid; }
+                        public void setAid(int aid) { this.aid = aid; }
+                        public String getUrl() { return url; }
+                        public void setUrl(String url) { this.url = url; }
+                        public String getFilename() { return filename; }
+                        public void setFilename(String filename) { this.filename = filename; }
+                        public String getDescription() { return description; }
+                        public void setDescription(String description) { this.description = description; }
+                    }
                 }
