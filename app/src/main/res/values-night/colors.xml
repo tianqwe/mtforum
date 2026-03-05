@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors - 深色模式下保持不变 -->
+    <color name="primary">#1976D2</color>
+    <color name="primary_dark">#1565C0</color>
+    <color name="primary_light">#42A5F5</color>
+    <color name="colorPrimary">#3B82F6</color>
+    <color name="colorPrimaryDark">#2563EB</color>
+    <color name="colorAccent">#10B981</color>
+    
+    <!-- Secondary Colors -->
+    <color name="secondary">#2196F3</color>
+    <color name="secondary_dark">#1976D2</color>
+    
+    <!-- Background - 深色背景 -->
+    <color name="background">#121212</color>
+    <color name="surface">#1E1E1E</color>
+    
+    <!-- Text Colors - 深色模式下反转 -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0B0B0</color>
+    <color name="text_tertiary">#808080</color>
+    <color name="text_hint">#666666</color>
+    
+    <!-- Other Colors -->
+    <color name="ripple">#1AFFFFFF</color>
+    <color name="ripple_color">#1A3B82F6</color>
+    <color name="placeholder">#2D2D2D</color>
+    
+    <!-- Misc -->
+    <color name="white">#FFFFFF</color>
+    <color name="divider">#2D2D2D</color>
+    <color name="error">#EF4444</color>
+    <color name="success">#10B981</color>
+    
+    <!-- 葫芦侠风格配色 - 深色模式 -->
+    <color name="huluxia_primary">#3B82F6</color>
+    <color name="huluxia_accent">#10B981</color>
+    <color name="huluxia_orange">#F59E0B</color>
+    <color name="huluxia_purple">#8B5CF6</color>
+    <color name="huluxia_pink">#EC4899</color>
+    <color name="huluxia_red">#EF4444</color>
+    <color name="huluxia_teal">#14B8A6</color>
+    <color name="card_background">#1E1E1E</color>
+    <color name="text_title">#FFFFFF</color>
+    <color name="text_summary">#B0B0B0</color>
+    <color name="text_meta">#808080</color>
+    <color name="text_time">#666666</color>
+    <color name="icon_gray">#808080</color>
+    
+    <!-- User Page Colors - 深色模式 -->
+    <color name="user_header_bg">#1E1E1E</color>
+    <color name="stats_number">#FFFFFF</color>
+    <color name="stats_label">#B0B0B0</color>
+    <color name="sign_in_btn">#FF6B35</color>
+    <color name="menu_icon_blue">#3B82F6</color>
+    <color name="menu_icon_orange">#F59E0B</color>
+    <color name="menu_icon_purple">#8B5CF6</color>
+    <color name="menu_icon_teal">#14B8A6</color>
+    <color name="menu_icon_pink">#EC4899</color>
+    <color name="menu_icon_gray">#B0B0B0</color>
+    <color name="guest_tag_bg">#8B5CF6</color>
+
+    <!-- 页面背景色 - 深色模式 -->
+    <color name="bg_page">#121212</color>
+    <color name="bg_card">#1E1E1E</color>
+    <color name="bg_input">#2D2D2D</color>
+    <color name="bg_quote">#2D2D2D</color>
+    <color name="bg_bottom_sheet">#1E1E1E</color>
+    
+    <!-- 通用文字颜色 - 深色模式 -->
+    <color name="text_dark">#FFFFFF</color>
+    <color name="text_gray">#B0B0B0</color>
+    <color name="text_light_gray">#808080</color>
+    <color name="text_disabled">#4D4D4D</color>
+    <color name="text_hint_light">#666666</color>
+    <color name="text_very_light">#4D4D4D</color>
+    
+    <!-- 图标颜色 - 深色模式 -->
+    <color name="icon_normal">#B0B0B0</color>
+    <color name="icon_light">#808080</color>
+    <color name="icon_very_light">#666666</color>
+    
+    <!-- 交互色 -->
+    <color name="link_color">#2196F3</color>
+    <color name="highlight_orange">#FF6B4A</color>
+    <color name="brown_text">#CD853F</color>
+    
+    <!-- Tab选中背景色 - 深色模式 -->
+    <color name="tab_selected_bg">#1A3D5C</color>
+    
+    <!-- 分割线和边框 - 深色模式 -->
+    <color name="border_light">#3D3D3D</color>
+    <color name="border_lighter">#2D2D2D</color>
+    
+    <!-- 标签背景 -->
+    <color name="tag_hot_bg">#EF4444</color>
+    
+    <!-- 排序容器背景 - 深色模式 -->
+    <color name="sort_container_bg">#3D3D3D</color>
+    
+    <!-- 评论列表标签颜色 - 深色模式 -->
+    <color name="comment_author_bg">#1A3D5C</color>
+    <color name="comment_author_text">#64B5F6</color>
+    <color name="comment_me_bg">#4D3D20</color>
+    <color name="comment_me_text">#FFB74D</color>
+    <color name="comment_both_bg">#1B4D2E</color>
+    <color name="comment_both_text">#81C784</color>
+    
+    <!-- 关注按钮颜色 - 深色模式 -->
+    <color name="follow_button_text">#FF8A65</color>
+    <color name="follow_button_border">#FF8A65</color>
+    
+    <!-- 分割线颜色 - 深色模式 -->
+    <color name="divider_color">#3D3D3D</color>
+    <color name="divider_background">#1E1E1E</color>
+
+    <!-- 分页导航背景 - 深色模式 -->
+    <color name="page_nav_bg">#2D2D2D</color>
+    <color name="page_indicator_bg">#3D3D3D</color>
+
+    <!-- 消息气泡颜色 - 深色模式 -->
+    <color name="message_sent_bg">#1A3D5C</color>
+    <color name="message_sent_text">#64B5F6</color>
+    
+    <!-- 提示强调色 - 深色模式 -->
+    <color name="info_blue">#64B5F6</color>
+    <color name="warning_orange">#FFB74D</color>
+    <color name="danger_red">#EF5350</color>
+    
+    <!-- 代码块颜色 - 深色模式保持不变 -->
+    <color name="code_bg">#1E1E1E</color>
+    <color name="code_header_bg">#2D2D2D</color>
+    <color name="code_line_number">#606060</color>
+    <color name="code_divider">#404040</color>
+    <color name="code_text">#D4D4D4</color>
+    <color name="code_language">#808080</color>
+    <color name="code_copy_link">#4FC3F7</color>
+    
+    <!-- 引用块边框 - 深色模式 -->
+    <color name="quote_border">#64B5F6</color>
+    
+    <!-- 付费内容颜色 - 深色模式 -->
+    <color name="paid_bg">#3D3520</color>
+    <color name="paid_text">#FFB74D</color>
+    <color name="paid_divider">#4D3D20</color>
+    <color name="paid_deadline">#FFB74D</color>
+    <color name="paid_button">#FF9800</color>
+    <color name="paid_purchased">#81C784</color>
+    
+    <!-- 附件颜色 - 深色模式 -->
+    <color name="attachment_success">#81C784</color>
+    <color name="attachment_size">#808080</color>
+    <color name="attachment_info">#9E9E9E</color>
+    
+    <!-- 悬赏颜色 - 深色模式 -->
+    <color name="bounty_amount">#FF8A65</color>
+    <color name="bounty_button_text">#FFFFFF</color>
+    
+    <!-- 隐藏内容颜色 - 深色模式 -->
+    <color name="hidden_action_text">#FFFFFF</color>
+    
+    <!-- 打赏相关颜色 - 深色模式 -->
+    <color name="gold">#FFD700</color>
+    <color name="gold_dark">#FFC107</color>
+    <color name="bg_light">#2D2D2D</color>
+
+</resources>

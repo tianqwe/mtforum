@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_page_selector_drawer"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingStart="16dp"
+    android:paddingTop="12dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="12dp">
+
+    <!-- 顶部指示条 -->
+    <View
+        android:layout_width="24dp"
+        android:layout_height="3dp"
+        android:background="@drawable/bg_page_selector_handle" />
+
+    <NumberPicker
+        android:id="@+id/pageNumberPicker"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="8dp"
+        android:selectionDividerHeight="0.5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/pageSelectorCancel"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_page_btn_cancel"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/text_meta"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/pageSelectorConfirm"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_page_btn_confirm"
+            android:gravity="center"
+            android:text="跳转"
+            android:textColor="@android:color/white"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

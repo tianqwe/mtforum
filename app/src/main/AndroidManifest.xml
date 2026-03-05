@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- 网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
+    <!-- 存储权限 (用于图片缓存) -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <!-- Android 11+ 包可见性声明 -->
+    <queries>
+        <!-- 微信 -->
+        <package android:name="com.tencent.mm" />
+        <!-- QQ -->
+        <package android:name="com.tencent.mobileqq" />
+        <!-- QQ空间 -->
+        <package android:name="com.qzone" />
+        <!-- 微博 -->
+        <package android:name="com.sina.weibo" />
+        
+        <!-- 通用分享 Intent -->
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="text/plain" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="image/*" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true"
+        tools:targetApi="31">
+        
+        <!-- 主Activity -->
+        <activity
+            android:name="com.forum.mt.MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <!-- 帖子详情页 -->
+        <activity
+            android:name="com.forum.mt.ui.PostDetailActivity"
+            android:exported="false"
+            android:label="帖子详情" />
+        
+        <!-- 版块帖子列表页 -->
+        <activity
+            android:name="com.forum.mt.ui.ForumPostListActivity"
+            android:exported="false"
+            android:label="版块" />
+        
+        <!-- 登录页 -->
+        <activity
+            android:name="com.forum.mt.ui.LoginActivity"
+            android:exported="false"
+            android:label="登录" />
+        
+        <!-- 图片查看器 -->
+        <activity
+            android:name="com.forum.mt.ui.ImageViewerActivity"
+            android:exported="false"
+            android:theme="@style/FullScreenTheme" />
+        
+        <!-- 我的帖子 -->
+        <activity
+            android:name="com.forum.mt.ui.MyPostsActivity"
+            android:exported="false"
+            android:label="我的帖子" />
+        
+        <!-- 我的收藏 -->
+        <activity
+            android:name="com.forum.mt.ui.MyFavoritesActivity"
+            android:exported="false"
+            android:label="我的收藏" />
+        
+        <!-- 浏览历史 -->
+        <activity
+            android:name="com.forum.mt.ui.BrowseHistoryActivity"
+            android:exported="false"
+            android:label="浏览历史" />
+        
+        <!-- 我的评论 -->
+        <activity
+            android:name="com.forum.mt.ui.MyRepliesActivity"
+            android:exported="false"
+            android:label="我的评论" />
+        
+        <!-- 搜索页面 -->
+        <activity
+            android:name="com.forum.mt.ui.SearchActivity"
+            android:exported="false"
+            android:label="搜索"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
+        
+        <!-- 设置页面 -->
+        <activity
+            android:name="com.forum.mt.ui.SettingsActivity"
+            android:exported="false"
+            android:label="设置" />
+        
+        <!-- 用户详情页面 -->
+        <activity
+            android:name="com.forum.mt.ui.UserDetailActivity"
+            android:exported="false"
+            android:label="用户详情" />
+        
+        <!-- 私信对话页面 -->
+        <activity
+            android:name="com.forum.mt.ui.PmChatActivity"
+            android:exported="false"
+            android:label="私信"
+            android:windowSoftInputMode="adjustResize" />
+        
+        <!-- 版块选择页面 -->
+        <activity
+            android:name="com.forum.mt.ui.ForumSelectActivity"
+            android:exported="false"
+            android:label="选择板块"
+            android:theme="@style/NewThreadTheme" />
+
+        <!-- 发帖页面 -->
+        <activity
+            android:name="com.forum.mt.ui.NewThreadActivity"
+            android:exported="false"
+            android:label="发表帖子"
+            android:theme="@style/NewThreadTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+    </application>
+
+</manifest>

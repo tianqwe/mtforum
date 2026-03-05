@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_bottom_sheet"
+    android:paddingBottom="24dp">
+
+    <!-- 标题栏 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="举报帖子"
+            android:textColor="@color/text_dark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/reportCloseButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="4dp"
+            android:src="@drawable/ic_close"
+            android:tint="@color/icon_normal" />
+
+    </LinearLayout>
+
+    <!-- 分割线 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
+
+    <!-- 提示信息 -->
+    <TextView
+        android:id="@+id/reportTipText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/text_light_gray"
+        android:textSize="13sp" />
+
+    <!-- 举报类型选择 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:text="请选择举报类型："
+        android:textColor="@color/warning_orange"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/reportTypeGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp">
+
+        <RadioButton
+            android:id="@+id/reportType1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="广告/垃圾内容"
+            android:textColor="@color/text_dark"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/reportType2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="恶意灌水/无意义内容"
+            android:textColor="@color/text_dark"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/reportType3"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="辱骂/人身攻击"
+            android:textColor="@color/text_dark"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/reportType4"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="抄袭/侵权内容"
+            android:textColor="@color/text_dark"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/reportType5"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="其他违规内容"
+            android:textColor="@color/text_dark"
+            android:textSize="14sp" />
+
+    </RadioGroup>
+
+    <!-- 理由输入框（仅选择"其他"时显示） -->
+    <LinearLayout
+        android:id="@+id/reasonInputContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="举报理由："
+            android:textColor="@color/text_dark"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="(请认真填写举报理由，恶意举报将被处罚)"
+            android:textColor="@color/danger_red"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/reportReasonInput"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_input_field"
+            android:gravity="start|top"
+            android:hint="请输入举报理由（至少5个字符）"
+            android:inputType="textMultiLine"
+            android:maxLength="200"
+            android:padding="12dp"
+            android:textColor="@color/text_dark"
+            android:textColorHint="@color/text_disabled"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <!-- 提交按钮 -->
+    <TextView
+        android:id="@+id/reportSubmitButton"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_button_warning"
+        android:gravity="center"
+        android:text="提交举报"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

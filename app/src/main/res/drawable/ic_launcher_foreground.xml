@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- MT Logo 前景 - 白色 -->
+    <!-- 安全区域: 18-90 (中心72dp) -->
+
+    <!-- M 字母 - 左侧双拱形 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="
+            M24,70
+            L24,38
+            Q24,30 32,30
+            L36,30
+            Q40,30 42,36
+            L48,52
+            L54,36
+            Q56,30 60,30
+            L64,30
+            Q72,30 72,38
+            L72,70
+            L64,70
+            L64,42
+            L56,60
+            Q54,64 50,64
+            L46,64
+            Q42,64 40,60
+            L32,42
+            L32,70
+            Z
+        " />
+
+    <!-- T 字母 - 横杠和竖干 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="
+            M60,70
+            L60,42
+            L76,42
+            L76,70
+            L84,70
+            L84,38
+            Q84,34 80,34
+            L56,34
+            Q52,34 52,38
+            L52,70
+            Z
+        " />
+
+</vector>

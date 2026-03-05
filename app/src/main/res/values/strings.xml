@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MT论坛</string>
+    <string name="home">首页</string>
+    <string name="forum">版块</string>
+    <string name="message">消息</string>
+    <string name="user">我的</string>
+    <string name="hot">热门</string>
+    <string name="newthread">最新</string>
+    <string name="digest">精华</string>
+    <string name="login">登录</string>
+    <string name="logout">退出登录</string>
+    <string name="loading">加载中...</string>
+    <string name="load_failed">加载失败</string>
+    <string name="retry">重试</string>
+    <string name="no_data">暂无数据</string>
+    <string name="replies">回复</string>
+    <string name="views">浏览</string>
+    
+    <!-- 消息页面 -->
+    <string name="message_center">消息中心</string>
+    <string name="private_message">私信</string>
+    <string name="notification">通知</string>
+    <string name="login_to_view_messages">请先登录查看消息</string>
+    <string name="login_now">立即登录</string>
+    <string name="no_messages">暂无私信</string>
+    <string name="no_notifications">暂无通知</string>
+    <string name="avatar">头像</string>
+    <string name="notification_icon">通知图标</string>
+</resources>

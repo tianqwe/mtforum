@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/bg_page">
+
+    <!-- 表情分类标签 -->
+    <LinearLayout
+        android:id="@+id/smileyTabs"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/surface"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tabTb"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="滑稽"
+            android:textColor="@color/text_dark"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:background="?attr/selectableItemBackground" />
+
+        <TextView
+            android:id="@+id/tabQQ"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="默认"
+            android:textColor="@color/text_light_gray"
+            android:textSize="14sp"
+            android:background="?attr/selectableItemBackground" />
+
+        <TextView
+            android:id="@+id/tabDoge"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Doge"
+            android:textColor="@color/text_light_gray"
+            android:textSize="14sp"
+            android:background="?attr/selectableItemBackground" />
+
+    </LinearLayout>
+
+    <!-- 分隔线 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bg_input" />
+
+    <!-- 表情网格 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/smileyGrid"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:padding="8dp"
+        android:background="@color/surface"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/item_smiley" />
+
+    <!-- 删除按钮 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/surface"
+        android:gravity="end|center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_reply_input"
+            android:gravity="center"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="删除"
+            android:textColor="@color/text_gray"
+            android:textSize="13sp"
+            android:drawableStart="@drawable/ic_delete"
+            android:drawablePadding="4dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors -->
+    <color name="primary">#1976D2</color>
+    <color name="primary_dark">#1565C0</color>
+    <color name="primary_light">#42A5F5</color>
+    <color name="colorPrimary">#3B82F6</color>
+    <color name="colorPrimaryDark">#2563EB</color>
+    <color name="colorAccent">#10B981</color>
+    
+    <!-- Secondary Colors -->
+    <color name="secondary">#2196F3</color>
+    <color name="secondary_dark">#1976D2</color>
+    
+    <!-- Background -->
+    <color name="background">#F5F6FA</color>
+    <color name="surface">#FFFFFF</color>
+    
+    <!-- Text Colors -->
+    <color name="text_primary">#1A1A2E</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="text_tertiary">#9CA3AF</color>
+    <color name="text_hint">#9CA3AF</color>
+    
+    <!-- Other Colors -->
+    <color name="ripple">#1A000000</color>
+    <color name="ripple_color">#1A3B82F6</color>
+    <color name="placeholder">#E5E7EB</color>
+    
+    <!-- Misc -->
+    <color name="white">#FFFFFF</color>
+    <color name="divider">#F0F0F0</color>
+    <color name="error">#EF4444</color>
+    <color name="success">#10B981</color>
+    
+    <!-- 葫芦侠风格配色 -->
+    <color name="huluxia_primary">#3B82F6</color>
+    <color name="huluxia_accent">#10B981</color>
+    <color name="huluxia_orange">#F59E0B</color>
+    <color name="huluxia_purple">#8B5CF6</color>
+    <color name="huluxia_pink">#EC4899</color>
+    <color name="huluxia_red">#EF4444</color>
+    <color name="huluxia_teal">#14B8A6</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="text_title">#1a1a1a</color>
+    <color name="text_summary">#666666</color>
+    <color name="text_meta">#888888</color>
+    <color name="text_time">#AAAAAA</color>
+    <color name="icon_gray">#9CA3AF</color>
+    
+    <!-- User Page Colors -->
+    <color name="user_header_bg">#FFFFFF</color>
+    <color name="stats_number">#1A1A2E</color>
+    <color name="stats_label">#6B7280</color>
+    <color name="sign_in_btn">#FF6B35</color>
+    <color name="menu_icon_blue">#3B82F6</color>
+    <color name="menu_icon_orange">#F59E0B</color>
+    <color name="menu_icon_purple">#8B5CF6</color>
+    <color name="menu_icon_teal">#14B8A6</color>
+    <color name="menu_icon_pink">#EC4899</color>
+    <color name="menu_icon_gray">#6B7280</color>
+    <color name="guest_tag_bg">#8B5CF6</color>
+
+    <!-- 页面背景色 -->
+    <color name="bg_page">#F5F6FA</color>
+    <color name="bg_card">#FFFFFF</color>
+    <color name="bg_input">#F5F5F5</color>
+    <color name="bg_quote">#F5F5F5</color>
+    <color name="bg_bottom_sheet">#F5F5F5</color>
+    
+    <!-- 通用文字颜色 -->
+    <color name="text_dark">#333333</color>
+    <color name="text_gray">#666666</color>
+    <color name="text_light_gray">#999999</color>
+    <color name="text_disabled">#CCCCCC</color>
+    <color name="text_hint_light">#AAAAAA</color>
+    <color name="text_very_light">#BBBBBB</color>
+    
+    <!-- 图标颜色 -->
+    <color name="icon_normal">#666666</color>
+    <color name="icon_light">#999999</color>
+    <color name="icon_very_light">#AAAAAA</color>
+    
+    <!-- 交互色 -->
+    <color name="link_color">#2196F3</color>
+    <color name="highlight_orange">#FF6B4A</color>
+    <color name="brown_text">#8B4513</color>
+    
+    <!-- Tab选中背景色 -->
+    <color name="tab_selected_bg">#E3F2FD</color>
+    
+    <!-- 分割线和边框 -->
+    <color name="border_light">#E0E0E0</color>
+    <color name="border_lighter">#F0F0F0</color>
+    
+    <!-- 标签背景 -->
+    <color name="tag_hot_bg">#EF4444</color>
+    
+    <!-- 排序容器背景 -->
+    <color name="sort_container_bg">#E8E8E8</color>
+    
+    <!-- 评论列表标签颜色 -->
+    <color name="comment_author_bg">#E3F2FD</color>
+    <color name="comment_author_text">#2196F3</color>
+    <color name="comment_me_bg">#FFF3E0</color>
+    <color name="comment_me_text">#FF9800</color>
+    <color name="comment_both_bg">#E8F5E9</color>
+    <color name="comment_both_text">#4CAF50</color>
+    
+    <!-- 关注按钮颜色 -->
+    <color name="follow_button_text">#FF6B4A</color>
+    <color name="follow_button_border">#FF6B4A</color>
+    
+    <!-- 分割线颜色 -->
+    <color name="divider_color">#E0E0E0</color>
+    <color name="divider_background">#F5F6FA</color>
+
+    <!-- 分页导航背景 -->
+    <color name="page_nav_bg">#F5F5F5</color>
+    <color name="page_indicator_bg">#E8E8E8</color>
+
+    <!-- 消息气泡颜色 -->
+    <color name="message_sent_bg">#E3F2FD</color>
+    <color name="message_sent_text">#1565C0</color>
+    
+    <!-- 打赏相关颜色 -->
+    <color name="gold">#FFD700</color>
+    <color name="gold_dark">#FFC107</color>
+    <color name="bg_light">#F8F9FA</color>
+    
+    <!-- 提示强调色 -->
+    <color name="info_blue">#42A5F5</color>
+    <color name="warning_orange">#FF9800</color>
+    <color name="danger_red">#FF6B6B</color>
+    
+    <!-- 代码块颜色 -->
+    <color name="code_bg">#1E1E1E</color>
+    <color name="code_header_bg">#2D2D2D</color>
+    <color name="code_line_number">#606060</color>
+    <color name="code_divider">#404040</color>
+    <color name="code_text">#D4D4D4</color>
+    <color name="code_language">#808080</color>
+    <color name="code_copy_link">#4FC3F7</color>
+    
+    <!-- 引用块边框 -->
+    <color name="quote_border">#2196F3</color>
+    
+    <!-- 付费内容颜色 -->
+    <color name="paid_bg">#FFF8E1</color>
+    <color name="paid_text">#F57C00</color>
+    <color name="paid_divider">#FFE0B2</color>
+    <color name="paid_deadline">#FFA726</color>
+    <color name="paid_button">#FF9800</color>
+    <color name="paid_purchased">#4CAF50</color>
+    
+    <!-- 附件颜色 -->
+    <color name="attachment_success">#4CAF50</color>
+    <color name="attachment_size">#9E9E9E</color>
+    <color name="attachment_info">#757575</color>
+    
+    <!-- 悬赏颜色 -->
+    <color name="bounty_amount">#FF6B35</color>
+    <color name="bounty_button_text">#FFFFFF</color>
+    
+    <!-- 隐藏内容颜色 -->
+    <color name="hidden_action_text">#FFFFFF</color>
+
+</resources>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 横向分类导航栏布局 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/surface">
+    
+    <!-- 导航栏容器 -->
+    <HorizontalScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:fillViewport="true">
+        
+        <LinearLayout
+            android:id="@+id/tabsContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:gravity="center_vertical">
+            
+            <!-- 全部 -->
+            <FrameLayout
+                android:id="@+id/tabAll"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:minWidth="64dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground">
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    
+                    <TextView
+                        android:id="@+id/tabAllText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="全部"
+                        android:textColor="#3B82F6"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                        
+                    <View
+                        android:id="@+id/tabAllIndicator"
+                        android:layout_width="20dp"
+                        android:layout_height="3dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_tab_indicator" />
+                        
+                </LinearLayout>
+                
+            </FrameLayout>
+            
+            <!-- 最新 -->
+            <FrameLayout
+                android:id="@+id/tabLatest"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:minWidth="64dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground">
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    
+                    <TextView
+                        android:id="@+id/tabLatestText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="最新"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp" />
+                        
+                    <View
+                        android:id="@+id/tabLatestIndicator"
+                        android:layout_width="20dp"
+                        android:layout_height="3dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_tab_indicator"
+                        android:visibility="invisible" />
+                        
+                </LinearLayout>
+                
+            </FrameLayout>
+            
+            <!-- 热门 -->
+            <FrameLayout
+                android:id="@+id/tabHot"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:minWidth="64dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground">
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    
+                    <TextView
+                        android:id="@+id/tabHotText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="热门"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp" />
+                        
+                    <View
+                        android:id="@+id/tabHotIndicator"
+                        android:layout_width="20dp"
+                        android:layout_height="3dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_tab_indicator"
+                        android:visibility="invisible" />
+                        
+                </LinearLayout>
+                
+            </FrameLayout>
+            
+            <!-- 精华 -->
+            <FrameLayout
+                android:id="@+id/tabDigest"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:minWidth="64dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground">
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    
+                    <TextView
+                        android:id="@+id/tabDigestText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="精华"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp" />
+                        
+                    <View
+                        android:id="@+id/tabDigestIndicator"
+                        android:layout_width="20dp"
+                        android:layout_height="3dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_tab_indicator"
+                        android:visibility="invisible" />
+                        
+                </LinearLayout>
+                
+            </FrameLayout>
+            
+        </LinearLayout>
+        
+    </HorizontalScrollView>
+    
+    <!-- 底部分隔线 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/placeholder" />
+
+</LinearLayout>

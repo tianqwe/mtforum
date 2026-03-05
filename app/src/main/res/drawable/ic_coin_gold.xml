@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    
+    <!-- 徽章外层边框 -->
+    <path
+        android:pathData="M50,5A45,45 0 1,1 50,95A45,45 0 1,1 50,5z"
+        android:fillColor="#FFD700"
+        android:strokeColor="#B8860B"
+        android:strokeWidth="4" />
+    
+    <!-- 内层底色 -->
+    <path
+        android:pathData="M50,12A38,38 0 1,1 50,88A38,38 0 1,1 50,12z"
+        android:fillColor="#FFE45C" />
+    
+    <!-- 金币核心区域 -->
+    <path
+        android:pathData="M50,20A30,30 0 1,1 50,80A30,30 0 1,1 50,20z"
+        android:fillColor="#FFD700"
+        android:strokeColor="#B8860B"
+        android:strokeWidth="2" />
+    
+    <!-- 四角装饰星标 - 左 -->
+    <path
+        android:pathData="M12,50 L15,45 L18,50 L15,55 Z"
+        android:fillColor="#B8860B" />
+    
+    <!-- 四角装饰星标 - 右 -->
+    <path
+        android:pathData="M88,50 L85,45 L82,50 L85,55 Z"
+        android:fillColor="#B8860B" />
+    
+    <!-- 四角装饰星标 - 上 -->
+    <path
+        android:pathData="M50,12 L45,15 L50,18 L55,15 Z"
+        android:fillColor="#B8860B" />
+    
+    <!-- 四角装饰星标 - 下 -->
+    <path
+        android:pathData="M50,88 L45,85 L50,82 L55,85 Z"
+        android:fillColor="#B8860B" />
+    
+    <!-- 金币符号 $ 风格 -->
+    <path
+        android:pathData="M50,28 L50,35 M50,65 L50,72"
+        android:strokeColor="#B8860B"
+        android:strokeWidth="4"
+        android:strokeLineCap="round" />
+    
+    <!-- S形曲线 -->
+    <path
+        android:pathData="M38,38 Q38,50 50,50 Q62,50 62,62 Q62,68 50,68"
+        android:strokeColor="#B8860B"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent" />
+    
+    <path
+        android:pathData="M62,62 Q62,50 50,50 Q38,50 38,38 Q38,32 50,32"
+        android:strokeColor="#B8860B"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent" />
+    
+</vector>

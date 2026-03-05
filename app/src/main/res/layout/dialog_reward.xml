@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_bottom_sheet"
+    android:padding="16dp">
+
+    <!-- 标题 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="打赏"
+            android:textColor="@color/text_dark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/btnClose"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_close"
+            android:padding="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/text_gray"
+            android:contentDescription="关闭" />
+    </LinearLayout>
+
+    <!-- 用户信息 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="16dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatarImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_forum" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="12dp">
+
+            <TextView
+                android:id="@+id/usernameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_dark"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="搬砖不容易，打赏一下吧"
+                android:textColor="@color/text_gray"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 分隔线 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        android:layout_marginBottom="16dp" />
+
+    <!-- 好评选择 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="好评"
+            android:textColor="@color/text_dark"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!-- 减少按钮 -->
+            <ImageView
+                android:id="@+id/btnScore1Minus"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_remove"
+                android:padding="8dp"
+                android:background="@drawable/bg_circle_outline"
+                android:tint="@color/icon_normal"
+                android:contentDescription="减少" />
+
+            <!-- 数量显示 -->
+            <TextView
+                android:id="@+id/score1Text"
+                android:layout_width="60dp"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="+1"
+                android:textColor="@color/gold"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp" />
+
+            <!-- 增加按钮 -->
+            <ImageView
+                android:id="@+id/btnScore1Plus"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_add"
+                android:padding="8dp"
+                android:background="@drawable/bg_circle_outline"
+                android:tint="@color/icon_normal"
+                android:contentDescription="增加" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 金币选择 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="金币"
+            android:textColor="@color/text_dark"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!-- 减少按钮 -->
+            <ImageView
+                android:id="@+id/btnScore2Minus"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_remove"
+                android:padding="8dp"
+                android:background="@drawable/bg_circle_outline"
+                android:tint="@color/icon_normal"
+                android:contentDescription="减少" />
+
+            <!-- 数量显示 -->
+            <TextView
+                android:id="@+id/score2Text"
+                android:layout_width="60dp"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="+1"
+                android:textColor="@color/gold"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp" />
+
+            <!-- 增加按钮 -->
+            <ImageView
+                android:id="@+id/btnScore2Plus"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_add"
+                android:padding="8dp"
+                android:background="@drawable/bg_circle_outline"
+                android:tint="@color/icon_normal"
+                android:contentDescription="增加" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 理由输入 -->
+    <EditText
+        android:id="@+id/reasonInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edittext"
+        android:hint="打赏理由（可选）"
+        android:textColorHint="@color/text_gray"
+        android:textColor="@color/text_dark"
+        android:textSize="14sp"
+        android:padding="12dp"
+        android:maxLines="2"
+        android:layout_marginBottom="16dp" />
+
+    <!-- 提交按钮 -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="确认打赏"
+        android:textSize="16sp"
+        app:cornerRadius="24dp"
+        app:backgroundTint="@color/colorPrimary" />
+
+</LinearLayout>

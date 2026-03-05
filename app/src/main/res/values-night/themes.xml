@@ -1,0 +1,41 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <!-- Base application theme for dark mode -->
+  <style name="Base.AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+    <!-- Primary brand color. -->
+    <item name="colorPrimary">@color/primary</item>
+    <item name="colorPrimaryVariant">@color/primary_dark</item>
+    <item name="colorOnPrimary">@android:color/white</item>
+    <!-- Secondary brand color. -->
+    <item name="colorSecondary">@color/secondary</item>
+    <item name="colorSecondaryVariant">@color/secondary_dark</item>
+    <item name="colorOnSecondary">@android:color/white</item>
+    <!-- Status bar color - transparent for edge-to-edge -->
+    <item name="android:statusBarColor">@android:color/transparent</item>
+    <!-- Navigation bar color -->
+    <item name="android:navigationBarColor">@android:color/transparent</item>
+    <!-- Background color -->
+    <item name="android:windowBackground">@color/background</item>
+    <!-- 启用窗口内容过渡动画 -->
+    <item name="android:windowContentTransitions">true</item>
+    <item name="android:windowActivityTransitions">true</item>
+  </style>
+
+  <style name="AppTheme" parent="Base.AppTheme" />
+
+  <!-- 发帖页面主题 - 深色模式：深色状态栏，浅色文字 -->
+  <style name="NewThreadTheme" parent="Theme.Material3.DayNight.NoActionBar">
+    <item name="colorPrimary">@color/primary</item>
+    <item name="colorPrimaryVariant">@color/primary_dark</item>
+    <item name="colorOnPrimary">@android:color/white</item>
+    <item name="colorSecondary">@color/secondary</item>
+    <item name="colorSecondaryVariant">@color/secondary_dark</item>
+    <item name="colorOnSecondary">@android:color/white</item>
+    <!-- 深色状态栏 -->
+    <item name="android:statusBarColor">@color/surface</item>
+    <!-- 浅色状态栏文字 -->
+    <item name="android:windowLightStatusBar">false</item>
+    <!-- 导航栏颜色 -->
+    <item name="android:navigationBarColor">@color/surface</item>
+    <item name="android:windowLightNavigationBar">false</item>
+  </style>
+</resources>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="1dp"
+    app:cardBackgroundColor="@color/bg_quote">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical">
+
+        <!-- 文件图标 -->
+        <ImageView
+            android:id="@+id/fileTypeIcon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_file_document"
+            android:scaleType="centerInside" />
+
+        <!-- 文件信息 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
+
+            <!-- 文件名 -->
+            <TextView
+                android:id="@+id/fileNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/attachment_success"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:maxLines="2"
+                android:ellipsize="middle"
+                tools:text="牛精灵分析报告.txt" />
+
+            <!-- 上传时间 -->
+            <TextView
+                android:id="@+id/uploadTimeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/attachment_size"
+                android:textSize="11sp"
+                tools:text="5 小时前上传" />
+
+            <!-- 文件大小和下载信息 -->
+            <TextView
+                android:id="@+id/downloadInfoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/attachment_info"
+                android:textSize="12sp"
+                tools:text="21.88 KB , 下载次数: 43, 下载积分: 金币 -1" />
+
+        </LinearLayout>
+
+        <!-- 下载按钮 -->
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_download"
+            android:tint="@color/attachment_success" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

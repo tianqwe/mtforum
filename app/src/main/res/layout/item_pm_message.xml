@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
+
+    <!-- 时间戳 (居中显示) -->
+    <TextView
+        android:id="@+id/timeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/text_light_gray"
+        android:textSize="11sp"
+        android:visibility="gone"
+        tools:text="昨天 15:30"
+        tools:visibility="visible" />
+
+    <!-- 消息行 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:orientation="horizontal">
+
+        <!-- 左侧头像 (对方消息) -->
+        <ImageView
+            android:id="@+id/avatarLeft"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_user"
+            android:visibility="visible" />
+
+        <!-- 消息气泡 -->
+        <LinearLayout
+            android:id="@+id/messageBubble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxWidth="260dp"
+            android:orientation="vertical">
+
+            <!-- 消息内容 -->
+            <TextView
+                android:id="@+id/messageContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_message_received"
+                android:padding="12dp"
+                android:textColor="@color/text_dark"
+                android:textSize="15sp"
+                android:textIsSelectable="true"
+                tools:text="这是消息内容，可以是很长的一段文字。" />
+
+        </LinearLayout>
+
+        <!-- 右侧头像 (自己发送的消息) -->
+        <ImageView
+            android:id="@+id/avatarRight"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_user"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</LinearLayout>

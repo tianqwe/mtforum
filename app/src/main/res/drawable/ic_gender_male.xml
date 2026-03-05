@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="14dp"
+    android:height="14dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- 男性符号 ♂ -->
+    <path
+        android:fillColor="#4FC3F7"
+        android:pathData="M9.5,11c1.93,0 3.5,1.57 3.5,3.5S11.43,18 9.5,18 6,16.43 6,14.5 7.57,11 9.5,11zM9.5,9C6.46,9 4,11.46 4,14.5S6.46,20 9.5,20c1.16,0 2.23,-0.36 3.11,-0.97l2.68,2.68 1.41,-1.41 -2.68,-2.68C14.64,16.73 15,15.66 15,14.5c0,-3.04 -2.46,-5.5 -5.5,-5.5z"/>
+    <path
+        android:fillColor="#4FC3F7"
+        android:pathData="M20,4h-5v2h2.59l-3.29,3.29 1.41,1.41L19,7.41V10h2V4z"/>
+</vector>

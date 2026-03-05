@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="8dp"
+    android:background="@drawable/bg_hidden_item"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="10dp">
+
+    <ImageView
+        android:id="@+id/hiddenIcon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:src="@drawable/ic_lock" />
+
+    <TextView
+        android:id="@+id/hiddenHint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="本帖子中包含更多精彩资源"
+        android:textColor="@color/paid_text"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/hiddenAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/bg_hidden_action"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="4dp"
+        android:text="登录查看"
+        android:textColor="@color/hidden_action_text"
+        android:textSize="12sp" />
+
+</LinearLayout>

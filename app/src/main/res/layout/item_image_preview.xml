@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="4dp">
+
+    <!-- 图片预览 - 使用RelativeLayout包裹 -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- 图片 -->
+        <ImageView
+            android:id="@+id/imagePreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:background="@drawable/bg_image_preview_rounded"
+            tools:src="@drawable/ic_image" />
+
+        <!-- 插入按钮 - 覆盖在图片底部 -->
+        <TextView
+            android:id="@+id/insertButton"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bg_image_insert_overlay"
+            android:gravity="center"
+            android:text="插入正文"
+            android:textColor="@android:color/white"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </RelativeLayout>
+
+    <!-- 上传中遮罩 -->
+    <View
+        android:id="@+id/uploadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <!-- 上传进度 -->
+    <ProgressBar
+        android:id="@+id/uploadProgress"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_gravity="center"
+        android:indeterminateTint="@android:color/white"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <!-- 删除按钮 -->
+    <ImageView
+        android:id="@+id/deleteButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="top|end"
+        android:background="@drawable/bg_delete_button"
+        android:elevation="4dp"
+        android:padding="4dp"
+        android:src="@drawable/ic_close"
+        android:tint="@android:color/white"
+        android:visibility="visible" />
+
+</FrameLayout>

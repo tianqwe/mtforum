@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 置顶标签背景 - 浅蓝色 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#60A5FA" />
+    <corners android:radius="4dp" />
+</shape>
